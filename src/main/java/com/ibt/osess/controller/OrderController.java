@@ -1,5 +1,6 @@
 package com.ibt.osess.controller;
 
+import com.ibt.osess.Domain.WebResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,16 @@ public class OrderController {
      * @param map
      */
     @PostMapping("/makeOrder")
-    public void makeOrder(@RequestBody Map map){
+    public WebResult makeOrder(@RequestBody Map map){
+        WebResult webResult=new WebResult();
 
+        return webResult;
+    }
+
+    @PostMapping("/makeSuborder")
+    public WebResult makeSuborder(@RequestBody Map map){
+        WebResult webResult=new WebResult();
+
+        return webResult;
     }
 }
