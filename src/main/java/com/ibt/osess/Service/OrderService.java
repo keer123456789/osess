@@ -1,6 +1,7 @@
 package com.ibt.osess.Service;
 
 import com.ibt.osess.Domain.Order;
+import com.ibt.osess.Domain.Suborder;
 import com.ibt.osess.Domain.WebResult;
 
 /**
@@ -13,10 +14,16 @@ import com.ibt.osess.Domain.WebResult;
 public interface OrderService {
     /**
      * 产生新订单的接口
+     *
      * @param order
      * @return
      */
-    WebResult makeOrder(Order order,String key);
+    WebResult makeOrder(Order order, String key);
 
-
+    /**
+     * 产生子订单接口
+     *
+     * @return
+     */
+    WebResult makeSubOrder(Suborder suborder, String key);
 }

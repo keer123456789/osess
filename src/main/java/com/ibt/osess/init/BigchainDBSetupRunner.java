@@ -3,6 +3,7 @@ package com.ibt.osess.init;
 import com.bigchaindb.builders.BigchainDbConfigBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 /**
  * @BelongsProject: osess
@@ -11,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
  * @CreateTime: 2020-03-02 20:10
  * @Description: BigchainDB启动类，项目启动后自动连接配置文件中BigchainDB节点地址
  */
+@Component
 public class BigchainDBSetupRunner implements CommandLineRunner {
     @Value("${BigchainDB_URL}")
     private String url;
