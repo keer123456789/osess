@@ -1,5 +1,6 @@
 package com.ibt.osess.controller;
 
+import com.ibt.osess.Domain.Order;
 import com.ibt.osess.Domain.WebResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +24,12 @@ public class OrderController {
 
     /**
      * 生成订单
-     * @param map
+     * @param order
      */
     @PostMapping("/makeOrder")
-    public WebResult makeOrder(@RequestBody Map map){
+    public WebResult makeOrder(@RequestBody Order order){
         WebResult webResult=new WebResult();
-
+        logger.info(order.toString());
         return webResult;
     }
 

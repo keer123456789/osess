@@ -38,7 +38,7 @@ public class KeyPairHolder {
      * @param key
      * @return
      */
-    public EdDSAPublicKey getPublic(String key){
+    public static EdDSAPublicKey getPublic(String key){
         return (EdDSAPublicKey)KeyPairUtils.decodeKeyPair(key).getPublic();
     }
 
@@ -47,7 +47,7 @@ public class KeyPairHolder {
      * @param key
      * @return
      */
-    public EdDSAPrivateKey getPrivate(String key){
+    public static EdDSAPrivateKey getPrivate(String key){
         return (EdDSAPrivateKey) KeyPairUtils.decodeKeyPair(key).getPrivate();
     }
 
