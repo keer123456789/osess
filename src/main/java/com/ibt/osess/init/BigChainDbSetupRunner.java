@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Description: BigchainDB启动类，项目启动后自动连接配置文件中BigchainDB节点地址
  */
 @Component
-public class BigchainDBSetupRunner implements CommandLineRunner {
+public class BigChainDbSetupRunner implements CommandLineRunner {
     @Value("${BigchainDB_URL}")
     private String url;
 

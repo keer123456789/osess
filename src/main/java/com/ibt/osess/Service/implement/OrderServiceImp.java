@@ -1,6 +1,8 @@
 package com.ibt.osess.Service.implement;
 
 import com.bigchaindb.model.Asset;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ibt.osess.BigchainDB.BigchainDBUtil;
 import com.ibt.osess.Domain.Order;
 import com.ibt.osess.Domain.Suborder;
@@ -9,6 +11,8 @@ import com.ibt.osess.Service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Type;
 
 /**
  * @BelongsProject: osess
@@ -56,8 +60,13 @@ public class OrderServiceImp implements OrderService {
         Asset asset = dbUtil.selectAssetBySearchKey(suborder.getOrderID());
         Order order;
         if (asset != null) {
-            order = (Order) asset.getData();
-            //TODO : 将asset转化为对象类，linkedTreeMap 转化 对象类
+
+            //将asset.data 转化为 Order对象
+            Gson gson = new Gson();
+            String json = gson.toJson(asset.getData());
+            Type type = new TypeToken<Order>() {}.getType();
+            order = gson.fromJson(json, type);
+
             //如果该订单号的资产存在，检查订单中的用户ID和子订单中的用户ID是否相同
             if (!order.getUserID().equals(suborder.getUserID())) {
                 logger.error("******子订单信息错误******");
@@ -73,7 +82,7 @@ public class OrderServiceImp implements OrderService {
         }
 
 
-        String TXID=dbUtil.transferToSelf(asset.getId(),suborder,key);
+        String TXID = dbUtil.transferToSelf(asset.getId(), suborder, key);
         if (TXID != null) {
             webResult.setStatus(WebResult.SUCCESS);
             webResult.setData(TXID);
