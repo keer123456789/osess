@@ -1,6 +1,4 @@
-package com.ibt.osess.Domain;
-
-import java.util.Map;
+package com.ibt.osess.pojo;
 
 /**
  * @BelongsProject: osess
@@ -10,14 +8,46 @@ import java.util.Map;
  * @Description: 子订单对象
  */
 public class Suborder {
-    private String suborderID; //子订单ID
-    private String orderID; //主订单ID
-    private String userID; //评价该订单的乘客ID
-    private String subStart; // 子订单起点
-    private String subEnd; // 子订单终点
-    private Map<String, Object> way; //交通方式
-    private String subStartTime; //出发时间
-    private String subEndTime; //终点时间
+    /**
+     * 子订单ID
+     */
+    private String suborderID;
+    /**
+     * 主订单ID
+     */
+    private String orderID;
+    /**
+     * 评价该订单的乘客ID
+     */
+    private String userID;
+    /**
+     * 子订单起点
+     */
+    private String subStart;
+    /**
+     * 子订单终点
+     */
+    private String subEnd;
+    /**
+     * 交通工具类型
+     */
+    private String trafficTool;
+    /**
+     * 交通工具ID
+     */
+    private String trafficID;
+    /**
+     * 交通工具供应商名称
+     */
+    private String trafficName;
+    /**
+     * 出发时间
+     */
+    private String subStartTime;
+    /**
+     * 终点时间
+     */
+    private String subEndTime;
 
     public Suborder() {
     }
@@ -42,8 +72,16 @@ public class Suborder {
         return subEnd;
     }
 
-    public Map<String, Object> getWay() {
-        return way;
+    public String getTrafficTool() {
+        return trafficTool;
+    }
+
+    public String getTrafficID() {
+        return trafficID;
+    }
+
+    public String getTrafficName() {
+        return trafficName;
     }
 
     public String getSubStartTime() {
@@ -74,8 +112,16 @@ public class Suborder {
         this.subEnd = subEnd;
     }
 
-    public void setWay(Map<String, Object> way) {
-        this.way = way;
+    public void setTrafficTool(String trafficTool) {
+        this.trafficTool = trafficTool;
+    }
+
+    public void setTrafficID(String trafficID) {
+        this.trafficID = trafficID;
+    }
+
+    public void setTrafficName(String trafficName) {
+        this.trafficName = trafficName;
     }
 
     public void setSubStartTime(String subStartTime) {
@@ -94,7 +140,9 @@ public class Suborder {
                 ", userID='" + userID + '\'' +
                 ", subStart='" + subStart + '\'' +
                 ", subEnd='" + subEnd + '\'' +
-                ", way=" + way +
+                ", trafficTool='" + trafficTool + '\'' +
+                ", trafficID='" + trafficID + '\'' +
+                ", trafficName='" + trafficName + '\'' +
                 ", subStartTime='" + subStartTime + '\'' +
                 ", subEndTime='" + subEndTime + '\'' +
                 '}';

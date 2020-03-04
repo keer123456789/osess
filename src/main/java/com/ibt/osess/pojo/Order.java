@@ -1,4 +1,4 @@
-package com.ibt.osess.Domain;
+package com.ibt.osess.pojo;
 
 /**
  * @BelongsProject: osess
@@ -8,12 +8,30 @@ package com.ibt.osess.Domain;
  * @Description: 订单对象
  */
 public class Order {
-    private String userID; //用户ID
-    private String start;  //起点
-    private String end;  //终点
-    private String orderID; // 订单号
-    private String startTime; //开始时间
-    private String endTime; //结束时间
+    /**
+     * 用户ID
+     */
+    private String userID;
+    /**
+     * 起点
+     */
+    private String start;
+    /**
+     * 终点
+     */
+    private String end;
+    /**
+     * 订单号
+     */
+    private String orderID;
+    /**
+     * 开始时间
+     */
+    private String startTime;
+    /**
+     * 结束时间
+     */
+    private String endTime;
 
     public Order() {
     }

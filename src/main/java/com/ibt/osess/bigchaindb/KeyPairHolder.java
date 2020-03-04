@@ -1,8 +1,7 @@
-package com.ibt.osess.BigchainDB;
+package com.ibt.osess.bigchaindb;
 
 
 import com.bigchaindb.util.KeyPairUtils;
-import com.ibt.osess.controller.OrderController;
 import net.i2p.crypto.eddsa.EdDSAPrivateKey;
 import net.i2p.crypto.eddsa.EdDSAPublicKey;
 import net.i2p.crypto.eddsa.KeyPairGenerator;

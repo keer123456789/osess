@@ -1,9 +1,9 @@
 package com.ibt.osess.controller;
 
-import com.ibt.osess.Domain.Order;
-import com.ibt.osess.Domain.Suborder;
-import com.ibt.osess.Domain.WebResult;
-import com.ibt.osess.Service.OrderService;
+import com.ibt.osess.pojo.Order;
+import com.ibt.osess.pojo.Suborder;
+import com.ibt.osess.pojo.WebResult;
+import com.ibt.osess.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +51,11 @@ public class OrderController {
 
     @PostMapping("/makeSuborder")
     public WebResult makeSuborder(@RequestBody Suborder suborder, @RequestParam Map map) {
-        WebResult webResult = new WebResult();
         String key = null;
-
         if (map.containsKey("key")) {
             key = (String) map.get("key");
         } else {
+            WebResult webResult = new WebResult();
             webResult.setMessage("缺少密钥信息，登录信息是否正确");
             webResult.setStatus(WebResult.ERROR);
             logger.warn("请求错误：缺少密钥信息，登录信息是否正确");

@@ -1,4 +1,4 @@
-package com.ibt.osess.BigchainDB;
+package com.ibt.osess.bigchaindb;
 
 import com.bigchaindb.api.AssetsApi;
 import com.bigchaindb.api.TransactionsApi;
@@ -8,12 +8,8 @@ import com.bigchaindb.model.Asset;
 import com.bigchaindb.model.FulFill;
 import com.bigchaindb.model.Transaction;
 import com.bigchaindb.model.Transactions;
-import com.ibt.osess.Domain.Order;
-import com.ibt.osess.Service.implement.OrderServiceImp;
-import com.sun.org.apache.bcel.internal.generic.IXOR;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,8 +21,8 @@ import java.util.List;
  * @CreateTime: 2020-03-03 20:22
  * @Description: bigchaindb Driver工具类
  */
-public class BigchainDBUtil {
-    protected static final Logger logger = LoggerFactory.getLogger(BigchainDBUtil.class);
+public class BigChainDBUtil {
+    protected static final Logger logger = LoggerFactory.getLogger(BigChainDBUtil.class);
 
     /**
      * 创建资产，只有asset数据，没有metadata数据
@@ -172,7 +168,7 @@ public class BigchainDBUtil {
     }
 
     /**
-     *
+     * 根据关键字查询资产
      * @param searchKey
      * @return
      */
@@ -185,6 +181,8 @@ public class BigchainDBUtil {
         }
         return null;
     }
+
+
 
 
 }

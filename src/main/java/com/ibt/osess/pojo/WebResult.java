@@ -1,4 +1,4 @@
-package com.ibt.osess.Domain;
+package com.ibt.osess.pojo;
 
 /**
  * @BelongsProject: osess

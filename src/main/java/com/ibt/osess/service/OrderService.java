@@ -1,8 +1,8 @@
-package com.ibt.osess.Service;
+package com.ibt.osess.service;
 
-import com.ibt.osess.Domain.Order;
-import com.ibt.osess.Domain.Suborder;
-import com.ibt.osess.Domain.WebResult;
+import com.ibt.osess.pojo.Order;
+import com.ibt.osess.pojo.Suborder;
+import com.ibt.osess.pojo.WebResult;
 
 /**
  * @BelongsProject: osess
