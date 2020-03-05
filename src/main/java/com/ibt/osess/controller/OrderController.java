@@ -49,6 +49,12 @@ public class OrderController {
         return orderService.makeOrder(order, key);
     }
 
+    /**
+     * 为已经添加好的订单添加子订单
+     * @param suborder 子订单信息
+     * @param map
+     * @return
+     */
     @PostMapping("/makeSuborder")
     public WebResult makeSuborder(@RequestBody Suborder suborder, @RequestParam Map map) {
         String key = null;

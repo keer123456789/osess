@@ -4,15 +4,21 @@ import com.bigchaindb.api.AssetsApi;
 import com.bigchaindb.api.TransactionsApi;
 import com.bigchaindb.builders.BigchainDbTransactionBuilder;
 import com.bigchaindb.constants.Operations;
-import com.bigchaindb.model.Asset;
+import com.bigchaindb.model.Assets;
 import com.bigchaindb.model.FulFill;
 import com.bigchaindb.model.Transaction;
 import com.bigchaindb.model.Transactions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ibt.osess.pojo.MetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @BelongsProject: osess
@@ -21,8 +27,8 @@ import java.util.List;
  * @CreateTime: 2020-03-03 20:22
  * @Description: bigchaindb Driver工具类
  */
-public class BigChainDBUtil {
-    protected static final Logger logger = LoggerFactory.getLogger(BigChainDBUtil.class);
+public class BigChainDbUtil {
+    protected static final Logger logger = LoggerFactory.getLogger(BigChainDbUtil.class);
 
     /**
      * 创建资产，只有asset数据，没有metadata数据
@@ -128,7 +134,17 @@ public class BigChainDBUtil {
         }
         List<Transaction> list = transactions.getTransactions();
         if (list != null && list.size() > 0) {
-            fulFill.setTransactionId(list.get(list.size() - 1).getId());
+
+            /**
+             * 这里是修改交易id，直接用 list.get(list.size() - 1).getId() 获得的交易ID格式不对
+             * 例：""234abced342313455676767""
+             * 会在首尾多出一个"",只会让 构造出来的输入出错，最终BigchainDB会报错：404，找不到这笔交易
+             * 所以在这做一下处理
+             */
+            String id = list.get(list.size() - 1).getId();
+            id = id.substring(1, id.length() - 1);
+
+            fulFill.setTransactionId(id);
         } else {
             fulFill.setTransactionId(assetID);
         }
@@ -169,20 +185,44 @@ public class BigChainDBUtil {
 
     /**
      * 根据关键字查询资产
+     *
      * @param searchKey
      * @return
      */
-    public Asset selectAssetBySearchKey(String searchKey){
+    public Assets selectAssetBySearchKey(String searchKey) {
         try {
-            return AssetsApi.getAssets(searchKey).getAssets().get(0);
+            return AssetsApi.getAssets(searchKey);
         } catch (IOException e) {
-            logger.warn("***资产关键字查询失败，关键字："+searchKey+"***");
+            logger.warn("***资产关键字查询失败，关键字：" + searchKey + "***");
             e.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * 通过资产ID寻找metadata数据
+     *
+     * @param AssetID
+     * @return
+     */
+    public List<MetaData> selectMetaDataByAssetID(String AssetID) {
+        Transactions transactions = null;
+        try {
+            transactions = TransactionsApi.getTransactionsByAssetId(AssetID, Operations.TRANSFER);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<MetaData> metaDataList = new ArrayList<>();
+        for (Transaction transaction : transactions.getTransactions()) {
+            Map map = (Map) transaction.getMetaData();
+            MetaData metaData = new MetaData();
+            metaData.setId(transaction.getId());
+            metaData.setMetadata(map);
+            metaDataList.add(metaData);
+        }
+        return metaDataList;
 
+    }
 
 
 }

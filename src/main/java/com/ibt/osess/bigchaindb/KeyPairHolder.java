@@ -23,38 +23,42 @@ public class KeyPairHolder {
 
     /**
      * 生成BigchainDB密钥，以字符串的形式返回
+     *
      * @return 返回私钥
      */
-    public String makeKeyPair(){
-        KeyPairGenerator keyPairGenerator=new KeyPairGenerator() ;
-        KeyPair keyPair=keyPairGenerator.generateKeyPair();
+    public String makeKeyPair() {
+        KeyPairGenerator keyPairGenerator = new KeyPairGenerator();
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
         return KeyPairUtils.encodePrivateKeyBase64(keyPair);
 
     }
 
     /**
      * 通过密钥字符串得到公钥
+     *
      * @param key
      * @return
      */
-    public static EdDSAPublicKey getPublic(String key){
-        return (EdDSAPublicKey)KeyPairUtils.decodeKeyPair(key).getPublic();
+    public static EdDSAPublicKey getPublic(String key) {
+        return (EdDSAPublicKey) KeyPairUtils.decodeKeyPair(key).getPublic();
     }
 
     /**
      * 通过密钥字符串得到私钥
+     *
      * @param key
      * @return
      */
-    public static EdDSAPrivateKey getPrivate(String key){
+    public static EdDSAPrivateKey getPrivate(String key) {
         return (EdDSAPrivateKey) KeyPairUtils.decodeKeyPair(key).getPrivate();
     }
 
     /**
      * 调试方法，项目完成后删除此方法
+     *
      * @return
      */
-    public String getKeyPairFromTXT(){
+    public String getKeyPairFromTXT() {
         try {
             FileInputStream in = new FileInputStream("./keypair.txt");
             byte[] buffer = new byte[in.available()];

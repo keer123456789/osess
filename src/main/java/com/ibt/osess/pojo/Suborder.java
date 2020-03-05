@@ -35,7 +35,7 @@ public class Suborder {
     /**
      * 交通工具ID
      */
-    private String trafficID;
+    private String trafficToolID;
     /**
      * 交通工具供应商名称
      */
@@ -76,8 +76,8 @@ public class Suborder {
         return trafficTool;
     }
 
-    public String getTrafficID() {
-        return trafficID;
+    public String getTrafficToolID() {
+        return trafficToolID;
     }
 
     public String getTrafficName() {
@@ -116,8 +116,8 @@ public class Suborder {
         this.trafficTool = trafficTool;
     }
 
-    public void setTrafficID(String trafficID) {
-        this.trafficID = trafficID;
+    public void setTrafficToolID(String trafficToolID) {
+        this.trafficToolID = trafficToolID;
     }
 
     public void setTrafficName(String trafficName) {
@@ -141,7 +141,7 @@ public class Suborder {
                 ", subStart='" + subStart + '\'' +
                 ", subEnd='" + subEnd + '\'' +
                 ", trafficTool='" + trafficTool + '\'' +
-                ", trafficID='" + trafficID + '\'' +
+                ", trafficToolID='" + trafficToolID + '\'' +
                 ", trafficName='" + trafficName + '\'' +
                 ", subStartTime='" + subStartTime + '\'' +
                 ", subEndTime='" + subEndTime + '\'' +

@@ -16,6 +16,7 @@ public interface OrderService {
      * 产生新订单的接口
      *
      * @param order
+     * @param key
      * @return
      */
     WebResult makeOrder(Order order, String key);
@@ -23,6 +24,8 @@ public interface OrderService {
     /**
      * 产生子订单接口
      *
+     * @param suborder
+     * @param key
      * @return
      */
     WebResult makeSubOrder(Suborder suborder, String key);

@@ -1,9 +1,10 @@
 package com.ibt.osess.service.implement;
 
 import com.bigchaindb.model.Asset;
+import com.bigchaindb.model.Assets;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ibt.osess.bigchaindb.BigChainDBUtil;
+import com.ibt.osess.bigchaindb.BigChainDbUtil;
 import com.ibt.osess.pojo.Order;
 import com.ibt.osess.pojo.Suborder;
 import com.ibt.osess.pojo.WebResult;
@@ -36,8 +37,16 @@ public class OrderServiceImp implements OrderService {
     @Override
     public WebResult makeOrder(Order order, String key) {
         WebResult<String> webResult = new WebResult<>();
-        BigChainDBUtil dbUtil = new BigChainDBUtil();
+
+        /**
+         * 添加订单信息
+         */
+        BigChainDbUtil dbUtil = new BigChainDbUtil();
         String id = dbUtil.createAsset(order, key);
+
+        /**
+         * 检查订单信息是否添加成功
+         */
         if (id != null) {
             webResult.setStatus(WebResult.SUCCESS);
             webResult.setData(id);
@@ -54,42 +63,38 @@ public class OrderServiceImp implements OrderService {
 
     /**
      * 为订单添加子订单
+     *
      * @param suborder 子订单
-     * @param key 用户密钥
+     * @param key      用户密钥
      * @return
      */
     @Override
     public WebResult makeSubOrder(Suborder suborder, String key) {
         WebResult<String> webResult = new WebResult<>();
-        BigChainDBUtil dbUtil = new BigChainDBUtil();
-        //使用订单号查询资产
-        Asset asset = dbUtil.selectAssetBySearchKey(suborder.getOrderID());
-        Order order;
-        //如果该订单号的资产存在
-        if (asset != null) {
 
-            //将asset.data 转化为 Order对象
-            Gson gson = new Gson();
-            String json = gson.toJson(asset.getData());
-            Type type = new TypeToken<Order>() {}.getType();
-            order = gson.fromJson(json, type);
-
-            //检查订单中的用户ID和子订单中的用户ID是否相同
-            if (!order.getUserID().equals(suborder.getUserID())) {
-                logger.error("******子订单信息错误******");
-                webResult.setStatus(WebResult.ERROR);
-                webResult.setMessage("suborder info error");
-                return webResult;
-            }
-        } else {
-            logger.error("******子订单信息错误******");
-            webResult.setStatus(WebResult.ERROR);
+        /**
+         * 检查子订单信息
+         */
+        if (!checkOrderScoreInfo(suborder)) {
+            webResult.setStatus(WebResult.SUCCESS);
             webResult.setMessage("suborder info error");
             return webResult;
         }
 
+        /**
+         * 查找对应订单号的资产
+         */
+        BigChainDbUtil dbUtil = new BigChainDbUtil();
+        Asset asset = dbUtil.selectAssetBySearchKey(suborder.getOrderID()).getAssets().get(0);
 
+        /**
+         * 给订单资产添加子订单
+         */
         String TXID = dbUtil.transferToSelf(asset.getId(), suborder, key);
+
+        /**
+         * 检查子订单添加是否成功
+         */
         if (TXID != null) {
             webResult.setStatus(WebResult.SUCCESS);
             webResult.setData(TXID);
@@ -101,5 +106,48 @@ public class OrderServiceImp implements OrderService {
             logger.error("******创建子订单失败******");
         }
         return webResult;
+    }
+
+
+    /**
+     * 检查子订单信息是否正确
+     *
+     * @param suborder
+     * @return
+     */
+    private boolean checkOrderScoreInfo(Suborder suborder) {
+        BigChainDbUtil dbUtil = new BigChainDbUtil();
+        /**
+         * 使用订单号查询对应资产是否存在
+         */
+        Assets assets = dbUtil.selectAssetBySearchKey(suborder.getOrderID());
+        if (assets.size() != 1) {
+            logger.error("******订单号错误！******");
+            return false;
+        }
+        Asset asset = assets.getAssets().get(0);
+        if (asset == null) {
+            logger.error("******子订单信息错误******");
+            return false;
+        }
+
+        /**
+         * 将asset.data 转化为 Order对象
+         */
+        Gson gson = new Gson();
+        String json = gson.toJson(asset.getData());
+        Type type = new TypeToken<Order>() {
+        }.getType();
+        Order order = gson.fromJson(json, type);
+
+        /**
+         * 检查订单中的用户ID和子订单中的用户ID是否相同
+         */
+        if (!order.getUserID().equals(suborder.getUserID())) {
+            logger.error("******子订单信息错误******");
+            return false;
+        }
+
+        return true;
     }
 }

@@ -14,7 +14,8 @@ public interface EvaluateService {
     /**
      * 给子订单评分
      * @param score
+     * @param key
      * @return
      */
-    WebResult buildScore(SuborderScore score);
+    WebResult buildScore(SuborderScore score,String key);
 }

@@ -17,7 +17,7 @@ public class SuborderScore {
     /**
      * 交通工具ID
      */
-    String trafficID;
+    String trafficToolID;
     /**
      * 供应商名称
      */
@@ -46,8 +46,8 @@ public class SuborderScore {
         return trafficTool;
     }
 
-    public String getTrafficID() {
-        return trafficID;
+    public String getTrafficToolID() {
+        return trafficToolID;
     }
 
     public String getTrafficName() {
@@ -66,7 +66,7 @@ public class SuborderScore {
         return userID;
     }
 
-    public Map<String, StandardItem> getStandard() {
+    public Map<String, StandardItem> getStandards() {
         return standards;
     }
 
@@ -74,8 +74,8 @@ public class SuborderScore {
         this.trafficTool = trafficTool;
     }
 
-    public void setTrafficID(String trafficID) {
-        this.trafficID = trafficID;
+    public void setTrafficToolID(String trafficToolID) {
+        this.trafficToolID = trafficToolID;
     }
 
     public void setTrafficName(String trafficName) {
@@ -94,7 +94,7 @@ public class SuborderScore {
         this.userID = userID;
     }
 
-    public void setStandard(Map<String, StandardItem> standards) {
+    public void setStandards(Map<String, StandardItem> standards) {
         this.standards = standards;
     }
 
@@ -102,12 +102,12 @@ public class SuborderScore {
     public String toString() {
         return "SuborderScore{" +
                 "trafficTool='" + trafficTool + '\'' +
-                ", trafficID='" + trafficID + '\'' +
+                ", trafficToolID='" + trafficToolID + '\'' +
                 ", trafficName='" + trafficName + '\'' +
                 ", suborderID='" + suborderID + '\'' +
                 ", orderID='" + orderID + '\'' +
                 ", userID='" + userID + '\'' +
-                ", standard=" + standards +
+                ", standards=" + standards +
                 '}';
     }
 }
